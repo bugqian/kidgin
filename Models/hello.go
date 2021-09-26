@@ -1,7 +1,9 @@
 package Models
 
-import "models.go"
+import "fmt"
 
-func Hello()  {
-
+func Hello() {
+	var a int64
+	db.Table("user").Count(&a)
+	fmt.Println(a)
 }

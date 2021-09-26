@@ -2,12 +2,12 @@ package Apps
 
 import (
 	"github.com/gin-gonic/gin"
-	"kidgin/Utils"
+	"kidgin/Models"
 	"net/http"
 )
 
 func HelloHandler(c *gin.Context) {
-	Utils.Config()
+	Models.Hello()
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Hello www.topgoer.com!",
 	})
