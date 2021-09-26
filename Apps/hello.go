@@ -7,8 +7,8 @@ import (
 )
 
 func HelloHandler(c *gin.Context) {
-	Models.Hello()
+	count := Models.Hello()
 	c.JSON(http.StatusOK, gin.H{
-		"message": "Hello www.topgoer.com!",
+		"num": count,
 	})
 }

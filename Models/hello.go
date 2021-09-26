@@ -1,9 +1,7 @@
 package Models
 
-import "fmt"
-
-func Hello() {
+func Hello() int64 {
 	var a int64
 	db.Table("user").Count(&a)
-	fmt.Println(a)
+	return a
 }
