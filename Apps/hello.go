@@ -3,12 +3,14 @@ package Apps
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"kidgin/Models"
 	"log"
 	"time"
 )
 
 func HelloHandler(c *gin.Context) {
-	//count := Models.Hello()
+	count := Models.Hello()
+	c.String(200, fmt.Sprintf("人数 %d", count))
 	//1.json返回
 	//c.JSON(http.StatusOK, gin.H{"message": "ok", "code": 200})
 	//2.struct返回
@@ -26,7 +28,8 @@ func HelloHandler(c *gin.Context) {
 	//4.Yaml返回
 	//c.YAML(200, gin.H{"message": "error"})
 	//5.重定向
-	c.Redirect(302, "http://www.baidu.com")
+
+	//c.Redirect(302, "http://www.baidu.com")
 }
 
 func WorldHandler(c *gin.Context) {

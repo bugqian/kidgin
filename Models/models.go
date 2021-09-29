@@ -2,6 +2,7 @@ package Models
 
 import (
 	"fmt"
+	"github.com/go-redis/redis"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -11,8 +12,11 @@ import (
 
 var db *gorm.DB
 
+var RedisClient *redis.Client
+
 func init() {
 	RegisterGormDB()
+	ConnectRedis()
 }
 
 func RegisterGormDB() {
@@ -25,5 +29,18 @@ func RegisterGormDB() {
 	})
 	if err != nil {
 		panic(err)
+	}
+}
+
+func ConnectRedis() {
+	redisCon := Config.Config("redis")
+	RedisClient = redis.NewClient(&redis.Options{
+		Addr:     fmt.Sprintf("%s:%s", redisCon["host"], redisCon["port"]),
+		Password: redisCon["auth"],
+		DB:       0,
+	})
+	_, err := RedisClient.Ping().Result()
+	if err != nil {
+		panic("redis ping error")
 	}
 }
