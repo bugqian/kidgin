@@ -19,5 +19,11 @@ func LoadHello(e *gin.Engine) {
 		e.GET("/sync", Apps.SyncHandler)
 		e.GET("/mid", Middlewares.Middlewares(), Apps.Middlerware) //局部中间件
 		e.GET("/myWorld", Apps.MyWorldHandler)
+		article := e.Group("/article")
+		{
+			article.POST("/add", Apps.ArticleAdd)
+			article.PUT("/update/:id", Apps.ArticleUpdate)
+			article.DELETE("/delete/:id", Apps.ArticleDelete)
+		}
 	}
 }
