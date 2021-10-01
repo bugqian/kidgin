@@ -4,11 +4,13 @@ import (
 	"github.com/gin-gonic/gin"
 	"kidgin/Apps"
 	"kidgin/Middlewares"
+	"kidgin/Validate"
 )
 
 func LoadHello(e *gin.Engine) {
-	Middlewares.Middlewares()
-	e.POST("/login", Apps.HelloHandler)
+	Validate.ValidateRegister()
+	//Middlewares.Middlewares()
+	e.POST("/login", Apps.Login)
 	e.Use(Middlewares.AuthMiddleware())
 	{
 		e.GET("/hello", Apps.HelloHandler)

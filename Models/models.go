@@ -16,7 +16,7 @@ var RedisClient *redis.Client
 
 func init() {
 	RegisterGormDB()
-	ConnectRedis()
+	//ConnectRedis()
 }
 
 func RegisterGormDB() {

@@ -9,8 +9,8 @@ import (
 
 type User struct {
 	Id       int    `gorm:"primaryKey" json:"id" form:"id"`
-	UserName string `json:"username" form:"username" column:"username"`
-	PassWord string `json:"username" form:"username" column:"password"`
+	UserName string `json:"username" form:"username" gorm:"column:username"`
+	PassWord string `json:"username" form:"username" gorm:"column:password"`
 	Gender   int    `json:"gender" form:"gender" column:"gender"`
 	Age      int    `json:"age" form:"age" column:"age"`
 }
@@ -18,11 +18,15 @@ type User struct {
 //登录
 func (u *User) Login(UserName, PassWord string) (string, error) {
 	var user User
-	if record := db.Model(&user).Where("username = ?", UserName).First(&user).RowsAffected; record == 1 {
+	if record := db.Where("username = ?", UserName).First(&user).RowsAffected; record == 1 {
+		fmt.Println(user)
 		data := []byte(PassWord)
 		has := md5.Sum(data)
 		md5str := fmt.Sprintf("%x", has)
-		if md5str == PassWord {
+		fmt.Println(PassWord)
+		fmt.Println(md5str,"md5")
+		fmt.Println(user.PassWord,"pass")
+		if md5str == user.PassWord {
 			token, err := Utils.CreateJwtToken(user.Id, UserName)
 			return token, err
 		}

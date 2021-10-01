@@ -14,6 +14,7 @@ func Login(c *gin.Context) {
 	var loginInfo LoginInfo
 	if err := c.ShouldBind(&loginInfo); err != nil {
 		c.JSON(201, err.Error())
+		return
 	}
 	var user *Models.User
 	token, err := user.Login(loginInfo.UserName, loginInfo.PassWord)
